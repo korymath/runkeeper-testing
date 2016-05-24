@@ -18,11 +18,14 @@ end
 % Set the smoothing window size
 smoothLength = 20;
 
+% Save the distance unit constants
+mile = 1609.34; km = 1000;
+
 % Initilize the handles for the plots 
 h = zeros(1,length(dates));
 
 for i_date = 1:length(dates)
-    p = gpxread([dates{i_date}]);
+    p = gpxread(['data/' dates{i_date}]);
     
     %Find and remove any unusable times
     idx = find(strcmp(p.Time, ''));
@@ -64,10 +67,7 @@ for i_date = 1:length(dates)
     speed_smooth = smooth(speed(2:end)*3.6,smoothLength);
     
     %% plot
-    
-    % Save the distance unit constants
-    mile = 1609.34; km = 1000;
-    
+       
     % Build the figure
     h(i_date) = plot(time_min,speed_smooth,'color',1-[.9 .9 .9]*  (i_date / length(dates)),'DisplayName',dates{i_date});
     hold on; xlabel('Time (minutes)'); ylabel('Speed (km/h)'); axis tight;
