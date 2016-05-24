@@ -33,6 +33,7 @@ text(x_loc,speed(j),[marker_str num2str(marker_num) ...
     ': ' num2str(markers{marker_num}(1)) ':' ...
     num2str(markers{marker_num}(2)) 's' ]);
 
-vline(x_loc)
+% vline(x_loc)
+
 end
 
