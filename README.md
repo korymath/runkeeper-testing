@@ -9,5 +9,5 @@ It also adds markers for kilometers and miles.
 
 It works really well to see the comparison of two (or mulitple) runs, as can be seen right here: 
 
-![alt tag](https://github.com/korymath/runkeeper-testing/blob/master/example-compare.png?raw=true)
+![alt tag](https://raw.githubusercontent.com/korymath/runkeeper-testing/master/output_images/big-example-image.png)
 
