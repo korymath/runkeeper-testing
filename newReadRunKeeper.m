@@ -72,14 +72,25 @@ for i_date = 1:length(dates)
     h(i_date) = plot(time_min,speed_smooth,'color',1-[.9 .9 .9]*  (i_date / length(dates)),'DisplayName',dates{i_date});
     hold on; xlabel('Time (minutes)'); ylabel('Speed (km/h)'); axis tight;
     
-    % Build completed kilometer markers
-    for i = 1:floor(total_dis/km)
-        build_markers(i,d,time_min,km,speed_smooth,'KM');
+    n_km = floor(total_dis/km);
+    n_mile = floor(total_dis/mile);
+    
+    % Build completed markers
+    i = 1;
+    while (i < n_km || i < n_mile)
+        
+        if i < n_km
+            build_marker(i,d,time_min,km,speed_smooth,'KM');
+        end
+        
+        if i < n_mile
+            build_marker(i,d,time_min,mile,speed_smooth,'Mile');
+        end
     end
     
     % Build completed mile markers
     for i = 1:floor(total_dis/mile)
-        build_markers(i,d,time_min,mile,speed_smooth,'Mile');
+        build_marker(i,d,time_min,mile,speed_smooth,'Mile');
     end
 end
 
