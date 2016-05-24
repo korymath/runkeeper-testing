@@ -93,7 +93,7 @@ for i_date = 1:length(dates)
 end
 
 % Add the title and legend to the plot
-title(['Smooth Length: ' num2str(smoothLength) ' - Total Distance ' num2str(round(total_dis)) ' meters']);
+title(['Smooth Length: ' num2str(smoothLength) ' - Last Run Total Distance ' num2str(round(total_dis)) ' meters']);
 legend(h, new_dates);
 
 % Autosize for consistent comparison

@@ -21,11 +21,13 @@ co_mile = [0 0.75 0.75;
     0.75 0 0.75;
     0.75 0.75 0];
 
+
 % add the marker
+offset = -.2;
 if strcmp(marker_str,'KM')
-    scatter(x_loc,speed(j),a,co(marker_num,:),'filled');
+    scatter(x_loc+offset,speed(j),a,co(marker_num,:),'filled');
 else
-    scatter(x_loc,speed(j),a,co_mile(marker_num,:),'filled');
+    scatter(x_loc+offset,speed(j),a,co_mile(marker_num,:),'filled');
 end
 
 % add the marker text
