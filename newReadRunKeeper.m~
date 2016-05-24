@@ -1,6 +1,6 @@
-% clear all; close all;
+clear all; close all;
 
-% get files with a UI
+% get files with a UI 
 % start_path = '';
 % start_path = uigetdir(start_path);
 % files = dir([start_path '/data/*.gpx']);
@@ -10,38 +10,24 @@ files = dir('data/*.gpx');
 dates = {files(:).name};
 
 % Get the date strings for the legend
-new_dates = cell(length(dates),1);
 for i_date = 1:length(dates)
-    new_dates{i_date} = dates{i_date}(9:end-9);
+  new_dates{i_date} = dates{i_date}(9:end-9);
 end
 
 % Set the smoothing window size
-smoothLength = 20;
-
-% Initilize the handles for the plots 
-h = zeros(1,length(dates));
+smoothLength = 40;
 
 for i_date = 1:length(dates)
-    p = gpxread([dates{i_date}]);
-    
-    %Find and remove any unusable times
-    idx = find(strcmp(p.Time, ''));
-    
-    if ~isempty(idx)
-        p(idx) = [];
-    end
-    
+    p = gpxread(['' dates{i_date}]);
     Lat = p.Latitude;
     Lon = p.Longitude;
     
     %% Calculate distance between two adjacent points of track line in the unit of degree
     ellipsoid = wgs84Ellipsoid;
-    d = zeros(1,length(p)-1);
-    
-    %     arclen = [];
-    
+    d = [];
+%     arclen = [];
     for i=1:length(p)-1
-        %         arclen(i) = distance(Lat(i),Lon(i),Lat(i+1),Lon(i+1));
+%         arclen(i) = distance(Lat(i),Lon(i),Lat(i+1),Lon(i+1));
         d(i) = distance(Lat(i),Lon(i),Lat(i+1),Lon(i+1),ellipsoid);
     end
     
@@ -51,7 +37,6 @@ for i_date = 1:length(dates)
     %% compute the times
     timeStr = strrep(p.Time, 'T', ' ');
     timeStr = strrep(timeStr, 'Z', '');
-    
     p.DateNumber = datenum(timeStr);
     day = fix(p.DateNumber(1));
     p.TimeOfDay = p.DateNumber - day;
@@ -64,31 +49,35 @@ for i_date = 1:length(dates)
     speed_smooth = smooth(speed(2:end)*3.6,smoothLength);
     
     %% plot
-    
-    % Save the distance unit constants
+    % Save the distance unit 
     mile = 1609.34; km = 1000;
     
-    % Build the figure
-    h(i_date) = plot(time_min,speed_smooth,'color',1-[.9 .9 .9]*  (i_date / length(dates)),'DisplayName',dates{i_date});
+    figure;
+    h(i_date) =  plot(time_min,speed_smooth,'color',1-[.9 .9 .9]*  (i_date / length(dates)),'DisplayName',dates{i_date});
     hold on; xlabel('Time (minutes)'); ylabel('Speed (km/h)'); axis tight;
     
     % Build completed kilometer markers
     for i = 1:floor(total_dis/km)
-        build_markers(i,d,time_min,km,speed_smooth,'KM');
+        markers = build_markers(i,d,km,'KM');
     end
     
     % Build completed mile markers
     for i = 1:floor(total_dis/mile)
-        build_markers(i,d,time_min,mile,speed_smooth,'Mile');
-    end
+       markers = build_markers(i,d,mile,'Mile');
+    end    
+    
+    % Add the title and legend to the plot
+    title(['Smooth Length: ' num2str(smoothLength) ' - Total Distance ' num2str(round(total_dis)) ' meters']);
+    legend(h(1:length(dates)), new_dates);
+    
+    % Autosize for consistent comparison
+    % xlim([0 20]); ylim([4 20]);
 end
 
-% Add the title and legend to the plot
-title(['Smooth Length: ' num2str(smoothLength) ' - Total Distance ' num2str(round(total_dis)) ' meters']);
-legend(h, new_dates);
+% Sub function to build the markers
 
-% Autosize for consistent comparison
-% xlim([0 20]); ylim([4 20]);
+
+end
 
 
 
