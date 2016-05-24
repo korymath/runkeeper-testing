@@ -1,6 +1,6 @@
 # runkeeper-testing
 
-Modified code from Kyle for comparing multiple similar length trials of the same distance. 
+Modified code from @kylemath for comparing multiple similar length trials of the same distance. 
 
 ## Details 
 This matlab code works by smoothing the time derivative (smoothLength) of the GPX data and then plotting comparable runs of similar distances on the same plot.
