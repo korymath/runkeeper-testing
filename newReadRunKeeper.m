@@ -40,11 +40,8 @@ for i_date = 1:length(dates)
     %% Calculate distance between two adjacent points of track line in the unit of degree
     ellipsoid = wgs84Ellipsoid;
     d = zeros(1,length(p)-1);
-    
-    %     arclen = [];
-    
+ 
     for i=1:length(p)-1
-        %         arclen(i) = distance(Lat(i),Lon(i),Lat(i+1),Lon(i+1));
         d(i) = distance(Lat(i),Lon(i),Lat(i+1),Lon(i+1),ellipsoid);
     end
     
@@ -75,23 +72,24 @@ for i_date = 1:length(dates)
     n_km = floor(total_dis/km);
     n_mile = floor(total_dis/mile);
     
-    % Build completed markers
-    i = 1;
-    while (i < n_km || i < n_mile)
-        
-        if i < n_km
-            build_marker(i,d,time_min,km,speed_smooth,'KM');
+    %list of all the markers
+    km_l = km*1:n_km;
+    mile_l = mile*1:n_mile;
+    dis_l = [km_l mile_l];
+    dis_l = sort(dis_l);
+    
+    % loop through items in the list and draw them
+    for i_mark = 1:length(dis_l); 
+        if rem(dis_l(i_mark),1000) == 0
+            label = 'KM';
+        else
+            label = 'Mile';
         end
-        
-        if i < n_mile
-            build_marker(i,d,time_min,mile,speed_smooth,'Mile');
-        end
+        build_marker(i_mark,d,time_min,dis_l(i_mark),speed_smooth,label);
     end
     
-    % Build completed mile markers
-    for i = 1:floor(total_dis/mile)
-        build_marker(i,d,time_min,mile,speed_smooth,'Mile');
-    end
+       
+    
 end
 
 % Add the title and legend to the plot

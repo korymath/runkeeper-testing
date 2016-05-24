@@ -1,7 +1,7 @@
-function [] = build_marker(marker_num,dist,times,unit,speed,marker_str)
+function [] = build_marker(marker_num,dist,times,curr_distance,speed,marker_str)
 %BUILD_MARKERS build_marker is used to build distance markers on the plot
     % Find the first point at the / or after the completion of the km
-    j = find(cumsum(dist)>=(unit*marker_num),1);
+    j = find(cumsum(dist)>=(curr_distance),1);
 
     % build the marker with minutes and seconds
     markers{marker_num} = [floor(times(j)) rem(times(j),1)*60];
