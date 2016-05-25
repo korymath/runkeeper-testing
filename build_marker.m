@@ -25,19 +25,38 @@ co_mile = [0 0.75 0.75;
 marker_atten = run_number/n_runs;
 
 % add the marker
-offset = -.2;
-if strcmp(marker_str,'KM')
-    hs = scatter(x_loc+offset,speed(j),a,co(marker_num,:),'filled');
+if strcmp(marker_str,'km')
+    hs = scatter(x_loc,speed(j),a,co(marker_num,:),'filled');
     alpha(hs,marker_atten);
 else
-    hs = scatter(x_loc+offset,speed(j),a,co_mile(marker_num,:),'filled');
+    hs = scatter(x_loc,speed(j),a,co_mile(marker_num,:),'filled');
     alpha(hs,marker_atten);
 end
 
 % add the marker text
-text(x_loc,speed(j),[marker_str num2str(marker_num) ...
-    ': ' num2str(markers{marker_num}(1)) ':' ...
-    num2str(markers{marker_num}(2)) 's' ]);
+n_min = markers{marker_num}(1);
+n_sec = markers{marker_num}(2);
+
+if n_sec < 10
+    str_sec = ['0' num2str(markers{marker_num}(2))];
+    str_min = num2str(n_min);
+elseif n_sec > 59
+    str_sec = '00';
+    str_min = num2str(n_min+1);
+else
+    str_sec = num2str(markers{marker_num}(2));
+    str_min = num2str(n_min);
+end
+
+horz_offset = {-0.2,0.2};
+horz_align = {'right','left'};
+
+text(x_loc+horz_offset{mod(run_number,2)+1},speed(j),...
+    [marker_str num2str(marker_num) ' ' str_min ':' str_sec 's' ],...
+    'HorizontalAlignment',horz_align{mod(run_number,2)+1},...
+    'EdgeColor','black',...
+    'BackgroundColor','white',...
+    'FontSize',12);
 
 % vline(x_loc)
 

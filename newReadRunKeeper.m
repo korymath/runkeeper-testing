@@ -77,11 +77,11 @@ for i_date = 1:n_dates
     while (i <= n_km || i <= n_mile)
         
         if i <= n_km
-            build_marker(i,d,time_min,km,speed_smooth,'KM',i_date,n_dates);
+            build_marker(i,d,time_min,km,speed_smooth,'km',i_date,n_dates);
         end
         
         if i <= n_mile
-            build_marker(i,d,time_min,mile,speed_smooth,'Mile',i_date,n_dates);
+            build_marker(i,d,time_min,mile,speed_smooth,'mile',i_date,n_dates);
         end
         
         % Output the marker number
@@ -94,8 +94,10 @@ for i_date = 1:n_dates
 end
 
 % Add the title and legend to the plot
-title(['Smooth Length: ' num2str(smoothLength) ' - Last Run Total Distance ' num2str(round(total_dis)) ' meters']);
-legend(h, new_dates);
+title(['Smoothing: ' num2str(smoothLength) ' - Last Run Distance:' num2str(round(total_dis)) ' m']);
+[legh,objh,outh,outm] = legend(h, new_dates);
+set(objh,'linewidth',10);
+set(gca,'FontSize',24);
 
 % Autosize for consistent comparison
 % xlim([0 20]); ylim([4 20]);
