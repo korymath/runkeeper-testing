@@ -27,10 +27,14 @@ marker_atten = run_number/n_runs;
 % add the marker
 if strcmp(marker_str,'km')
     hs = scatter(x_loc,speed(j),a,co(marker_num,:),'filled');
-    alpha(hs,marker_atten);
+    if ~verLessThan('matlab', 'R2014a')
+        alpha(hs,marker_atten);
+    end
 else
     hs = scatter(x_loc,speed(j),a,co_mile(marker_num,:),'filled');
-    alpha(hs,marker_atten);
+    if ~verLessThan('matlab', 'R2014a')
+        alpha(hs,marker_atten);
+    end
 end
 
 % add the marker text
