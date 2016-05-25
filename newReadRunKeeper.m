@@ -94,7 +94,7 @@ for i_date = 1:n_dates
 end
 
 % Add the title and legend to the plot
-title(['Smoothing: ' num2str(smoothLength) ' - Last Run Distance:' num2str(round(total_dis)) ' m']);
+title(['Smoothing: ' num2str(smoothLength) ' - Last Run Distance: ' num2str(round(total_dis)) ' m']);
 [legh,objh,outh,outm] = legend(h, new_dates);
 set(objh,'linewidth',10);
 set(gca,'FontSize',24);
