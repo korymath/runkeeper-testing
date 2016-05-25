@@ -3,6 +3,7 @@ start_path = 'data/';
 % get files directly in the current directory
 files = dir([start_path '*.gpx']);
 dates = {files(:).name};
+n_dates = length(dates);
 
 % Get the date strings for the legend
 new_dates = cell(length(dates),1);
@@ -11,16 +12,16 @@ for i_date = 1:length(dates)
 end
 
 % Set the smoothing window size
-smoothLength = 20;
+smoothLength = 200;
 
 % Save the distance unit constants
 mile = 1609.34; km = 1000;
 
 % Initilize the figure and handles for the plots 
 hf = figure;
-h = zeros(1,length(dates));
+h = zeros(1,n_dates);
 
-for i_date = 1:length(dates)
+for i_date = 1:n_dates
     p = gpxread([start_path dates{i_date}]);
     
     %Find and remove any unusable times
@@ -76,11 +77,11 @@ for i_date = 1:length(dates)
     while (i <= n_km || i <= n_mile)
         
         if i <= n_km
-            build_marker(i,d,time_min,km,speed_smooth,'KM');
+            build_marker(i,d,time_min,km,speed_smooth,'KM',i_date,n_dates);
         end
         
         if i <= n_mile
-            build_marker(i,d,time_min,mile,speed_smooth,'Mile');
+            build_marker(i,d,time_min,mile,speed_smooth,'Mile',i_date,n_dates);
         end
         
         % Output the marker number

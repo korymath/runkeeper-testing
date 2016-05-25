@@ -1,4 +1,4 @@
-function [] = build_marker(marker_num,dist,times,unit,speed,marker_str)
+function [] = build_marker(marker_num,dist,times,unit,speed,marker_str,run_number,n_runs)
 %BUILD_MARKERS build_marker is used to build distance markers on the plot
 % Find the first point at the / or after the completion of the km
 j = find(cumsum(dist)>=(unit*marker_num),1);
@@ -21,13 +21,15 @@ co_mile = [0 0.75 0.75;
     0.75 0 0.75;
     0.75 0.75 0];
 
+%to shade based on run number
+marker_atten = run_number/n_runs;
 
 % add the marker
 offset = -.2;
 if strcmp(marker_str,'KM')
-    scatter(x_loc+offset,speed(j),a,co(marker_num,:),'filled');
+    scatter(x_loc+offset,speed(j),a,co(marker_num,:)*marker_atten,'filled');
 else
-    scatter(x_loc+offset,speed(j),a,co_mile(marker_num,:),'filled');
+    scatter(x_loc+offset,speed(j),a,co_mile(marker_num,:)*marker_atten,'filled');
 end
 
 % add the marker text
