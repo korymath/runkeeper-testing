@@ -21,15 +21,17 @@ co_mile = [0 0.75 0.75;
     0.75 0 0.75;
     0.75 0.75 0];
 
-%to shade based on run number
+% Transparency based on run number
 marker_atten = run_number/n_runs;
 
 % add the marker
 offset = -.2;
 if strcmp(marker_str,'KM')
-    scatter(x_loc+offset,speed(j),a,co(marker_num,:)*marker_atten,'filled');
+    hs = scatter(x_loc+offset,speed(j),a,co(marker_num,:),'filled');
+    alpha(hs,marker_atten);
 else
-    scatter(x_loc+offset,speed(j),a,co_mile(marker_num,:)*marker_atten,'filled');
+    hs = scatter(x_loc+offset,speed(j),a,co_mile(marker_num,:),'filled');
+    alpha(hs,marker_atten);
 end
 
 % add the marker text
