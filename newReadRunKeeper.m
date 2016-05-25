@@ -12,7 +12,7 @@ for i_date = 1:length(dates)
 end
 
 % Set the smoothing window size
-smoothLength = 200;
+smoothLength = 40;
 
 % Save the distance unit constants
 mile = 1609.34; km = 1000;
@@ -74,23 +74,24 @@ for i_date = 1:n_dates
     
     % Build completed markers
     i = 1;
+    
+    % Init a cell array to keep track of marker positions
+    markers = cell(n_km+n_mile,1);
+    
     while (i <= n_km || i <= n_mile)
         
         if i <= n_km
-            build_marker(i,d,time_min,km,speed_smooth,'km',i_date,n_dates);
+            markers{i,1} = build_marker(i,d,time_min,km,speed_smooth,'km',i_date,n_dates,markers);
         end
         
         if i <= n_mile
-            build_marker(i,d,time_min,mile,speed_smooth,'mile',i_date,n_dates);
+            markers{i+n_km,1} = build_marker(i,d,time_min,mile,speed_smooth,'mile',i_date,n_dates,markers);
         end
-        
-        % Output the marker number
-        disp(['Marker number: ' num2str(i)]);
         i = i + 1;
     end
     
     % Output the file date
-    disp(['Processing File: ' num2str(i_date)]);
+    disp(['Processing File: ' start_path dates{i_date}]);
 end
 
 % Add the title and legend to the plot
