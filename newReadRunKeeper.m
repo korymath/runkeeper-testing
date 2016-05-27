@@ -12,7 +12,7 @@ for i_date = 1:length(dates)
 end
 
 % Set the smoothing window size
-smoothLength = 40;
+smoothLength = 200;
 
 % Save the distance unit constants
 mile = 1609.34; km = 1000;
