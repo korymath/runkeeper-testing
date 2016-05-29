@@ -66,8 +66,8 @@ for i_date = 1:n_dates
     %% plot
        
     % Build the figure
-    exp_amt = 3;
-    h(i_date) = plot(time_min,speed_smooth,'color',1-[.9 .9 .9]*  ((10^exp_amt) ^ (i_date/n_dates) )  /(10^exp_amt),'DisplayName',dates{i_date},'LineWidth',2);
+    exp_amt = 5;
+    h(i_date) = plot(time_min,speed_smooth,'color',1-[.9 .9 .9]*  (((10^exp_amt) ^ (i_date/n_dates) )  /((10^exp_amt)*1.111112)+.1),'DisplayName',dates{i_date},'LineWidth',2);
     hold on; xlabel('Time (minutes)'); ylabel('Speed (km/h)'); axis tight;
     
     n_km = floor(total_dis/km);
@@ -96,7 +96,7 @@ for i_date = 1:n_dates
 end
 
 % Add the title and legend to the plot
-title(['Smoothing: ' num2str(smoothLength) ' - Last Run Distance: ' num2str(round(total_dis)) ' m']);
+title(['Last Run Distance: ' num2str(round(total_dis)) ' m']);
 [legh,objh,outh,outm] = legend(h, new_dates);
 set(objh,'linewidth',10);
 set(gca,'FontSize',24);

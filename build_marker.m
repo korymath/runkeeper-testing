@@ -24,8 +24,8 @@ co_mile = [0 0.75 0.75;
 
 
 % Transparency based on run number
-exp_amt = 3;
-marker_atten = ((10^exp_amt) ^ (run_number/n_runs) )  /(10^exp_amt); 
+exp_amt = 5;
+marker_atten = (((10^exp_amt) ^ (run_number/n_runs) )  /((10^exp_amt)*1.111112)+.1); 
 
 % add the marker
 if strcmp(marker_str,'km')
