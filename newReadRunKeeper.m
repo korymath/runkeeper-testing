@@ -12,7 +12,7 @@ for i_date = 1:length(dates)
 end
 
 % Set the smoothing window size
-smoothLength = 20;
+smoothLength = 100;
 
 % Save the distance unit constants
 mile = 1609.34; km = 1000;
@@ -66,7 +66,8 @@ for i_date = 1:n_dates
     %% plot
        
     % Build the figure
-    h(i_date) = plot(time_min,speed_smooth,'color',1-[.9 .9 .9]*  (i_date / length(dates)),'DisplayName',dates{i_date},'LineWidth',2);
+    exp_amt = 3;
+    h(i_date) = plot(time_min,speed_smooth,'color',1-[.9 .9 .9]*  ((10^exp_amt) ^ (i_date/n_dates) )  /(10^exp_amt),'DisplayName',dates{i_date},'LineWidth',2);
     hold on; xlabel('Time (minutes)'); ylabel('Speed (km/h)'); axis tight;
     
     n_km = floor(total_dis/km);
