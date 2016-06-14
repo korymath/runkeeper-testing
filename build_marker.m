@@ -12,10 +12,11 @@ marker = [floor(x_loc) rem(times(j),1)*60];
 % marker size and color
 a = 200;
 
-% KM marker coloring, Red Green Blue
+% KM marker coloring, Red Green Blue, Yellow
 co = [0 0 1;
     0 0.5 0;
-    1 0 0];
+    1 0 0;
+    1 1 0];
 
 % Mile coloring
 co_mile = [0 0.75 0.75;
