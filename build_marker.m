@@ -15,16 +15,17 @@ a = 200;
 % KM marker coloring, Red Green Blue
 co = [0 0 1;
     0 0.5 0;
-    1 0 0;
-    1 1 0];
+    1 0 0];
 
-% Mile coloring (teal,purple)
-co_mile = [0 0.75 0.75; 
+% Mile coloring
+co_mile = [0 0.75 0.75;
     0.75 0 0.75;
     0.75 0.75 0];
 
+
 % Transparency based on run number
-marker_atten = run_number/n_runs;
+exp_amt = 5;
+marker_atten = (((10^exp_amt) ^ (run_number/n_runs) )  /((10^exp_amt)*1.111112)+.1); 
 
 % add the marker
 if strcmp(marker_str,'km')
