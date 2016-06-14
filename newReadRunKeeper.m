@@ -22,6 +22,10 @@ hf = figure;
 h = zeros(1,n_dates);
 
 for i_date = 1:n_dates
+    
+    % Output the file date
+    disp(['Processing File: ' start_path dates{i_date}]);
+    
     p = gpxread([start_path dates{i_date}]);
     
     %Find and remove any unusable times
@@ -90,14 +94,13 @@ for i_date = 1:n_dates
         i = i + 1;
     end
     
-    % Output the file date
-    disp(['Processing File: ' start_path dates{i_date}]);
+
 end
 
 % Add the title and legend to the plot
 title(['Smoothing: ' num2str(smoothLength) ' - Last Run Distance: ' num2str(round(total_dis)) ' m']);
-[legh,objh,outh,outm] = legend(h, new_dates);
-set(objh,'linewidth',10);
+[legh,objh,outh,outm] = legend(h, new_dates,'Location','EastOutside');
+set(objh,'linewidth',5);
 set(gca,'FontSize',24);
 
 % Autosize for consistent comparison
