@@ -1,4 +1,4 @@
-function marker = build_marker(marker_num,dist,times,unit,speed,...
+function [marker, split] = build_marker(marker_num,dist,times,unit,speed,...
     marker_str,run_number,n_runs,markers)
 %BUILD_MARKERS build_marker is used to build distance markers on the plot
 % Find the first point at the / or after the completion of the km
@@ -8,6 +8,7 @@ x_loc = times(j);
 
 % build the marker with minutes and seconds
 marker = [floor(x_loc) rem(times(j),1)*60];
+split = marker; 
 
 % marker size and color
 a = 200;
@@ -64,12 +65,18 @@ if run_number >= n_runs-1  %only plot splits for last couple runs
         end
     end
     
+    split(1) = n_min;
+    split(2) = n_sec;
+    
     if n_sec < 10
         str_sec = ['0' num2str(n_sec)];
         str_min = num2str(n_min);
     elseif n_sec > 59
         str_sec = '00';
         str_min = num2str(n_min+1);
+        
+        split(1) = split(1)+1;
+        split(2) = 0;
     else
         str_sec = num2str(n_sec);
         str_min = num2str(n_min);

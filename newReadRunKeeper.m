@@ -81,18 +81,20 @@ for i_date = 1:n_dates
     
     % Init a cell array to keep track of marker positions
     markers = cell(n_km+n_mile,1);
+    splits = cell(n_km+n_mile,1);
     
     while (i <= n_km || i <= n_mile)
         
         if i <= n_km
-            markers{i,1} = build_marker(i,d,time_min,km,speed_smooth,'km',i_date,n_dates,markers);
+            [markers{i,1}, splits{i,1}] = build_marker(i,d,time_min,km,speed_smooth,'km',i_date,n_dates,markers);
         end
         
         if i <= n_mile
-            markers{i+n_km,1} = build_marker(i,d,time_min,mile,speed_smooth,'mile',i_date,n_dates,markers);
+            [markers{i+n_km,1}, splits{i+n_km,1}] = build_marker(i,d,time_min,mile,speed_smooth,'mile',i_date,n_dates,markers);
         end
         i = i + 1;
     end
+    
     
  
 end
