@@ -58,16 +58,20 @@ if run_number >= n_runs-1  %only plot splits for last couple runs
     if marker_num > 1
         n_min = marker(1) - markers{marker_num-1}(1);
         n_sec = marker(2) - markers{marker_num-1}(2);
+        if n_sec < 0 %since subtracting seconds and minutes separately
+            n_min = n_min - 1;
+            n_sec = 60 + n_sec;
+        end
     end
     
     if n_sec < 10
-        str_sec = ['0' num2str(marker(2))];
+        str_sec = ['0' num2str(n_sec)];
         str_min = num2str(n_min);
     elseif n_sec > 59
         str_sec = '00';
         str_min = num2str(n_min+1);
     else
-        str_sec = num2str(marker(2));
+        str_sec = num2str(n_sec);
         str_min = num2str(n_min);
     end
     
