@@ -1,3 +1,4 @@
+clear variables; close all;
 start_path = 'data/';
 
 % get files directly in the current directory
@@ -19,6 +20,7 @@ mile = 1609.34; km = 1000;
 
 % Initilize the figure and handles for the plots 
 hf = figure('units','normalized','outerposition',[0 0 1 1]);
+subplot(4,4,1:8);
 h = zeros(1,n_dates);
 
 for i_date = 1:n_dates
@@ -96,14 +98,35 @@ for i_date = 1:n_dates
     end
     
     
+    %save splits
+    for j=1:n_km+n_mile
+        out_splits(j,i_date) = (splits{j}(1)*60)+ splits{j}(2);
+    end
+    
+
  
 end
 
-% Add the title and legend to the plot
-title(['Last Run Distance: ' num2str(round(total_dis)) ' m']);
-[legh,objh,outh,outm] = legend(h, new_dates,'Location','EastOutside');
-set(objh,'linewidth',5);
-set(gca,'FontSize',24);
+
+
+
+
+%%
+
+
+intervals = {'KM1','Mile1','KM2','KM3','Mile2','KM4','Mile3'};
+for k = 1:size(out_splits,1)
+    subplot(4,4,8+k);
+    plot(1:n_dates,out_splits(k,:)/60);
+    title([intervals{k} ' Splits']);
+    ylabel('Minutes');
+end
+    
+%% Add the title and legend to the plot
+% title(['Last Run Distance: ' num2str(round(total_dis)) ' m']);
+% [legh,objh,outh,outm] = legend(h, new_dates,'Location','EastOutside');
+% set(objh,'linewidth',5);
+% set(gca,'FontSize',24);
 
 % Autosize for consistent comparison
 % xlim([0 20]); ylim([4 20]);
